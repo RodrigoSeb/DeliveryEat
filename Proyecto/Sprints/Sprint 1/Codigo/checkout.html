@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tiendas Pav</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/estilos.css">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+
+    <!-- jQuery (necesario para los plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="jumbotron">
+                <h1>DELIVEREAT!</h1>
+                <h2>Check-out</h2>
+            </div>
+        </header>
+
+        <hr />
+
+        <h3 class="text-center">Visualizacion de carrito</h3>
+
+        <div>
+            <table class="table table-bordered" id="carrito">
+                <thead>
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Unidades</th>
+                        <th scope="col">Comercio</th>
+                        <th scope="col">Borrar</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+            </table>
+        </div>
+
+        <script>
+            var obj = [
+                { "nombre": "Empanadas", "precio": "18", "unidades": 24, "comercio": "Noble Repulgue" },
+            ];
+
+            var globalCounter = 0;
+            var tbody = document.getElementById('tbody');
+            for (var i = 0; i < Object.keys(obj).length; i++) {
+                var tr = "<tr>";
+                if (obj[i].nombre.toString().substring(obj[i].nombre.toString().indexOf('.'), obj[i].nombre.toString().length) < 2) obj[i].nombre += "0";
+
+
+
+                tr += "<td>" + obj[i].nombre + "</td>";
+                tr += "<td>$" + obj[i].precio.toString() + "</td>";
+                tr += "<td>" + obj[i].unidades.toString() + "</td>";
+                tr += "<td>" + obj[i].comercio.toString() + "</td>";
+                tr += "<td> <input onclick=productDelete(this) type='button'> </td>";
+
+
+
+                tbody.innerHTML += tr;
+
+                function productDelete(ctl) {
+                    $(ctl).parents("tr").remove();
+                }
+
+
+            }
+        </script>
+
+        <hr />
+
+        <div class="">
+
+            
+
+                <h2 class="text-center">Ingrese datos para su envío</h2>
+
+                <!--
+            <p class="text-center">Complete todos los campos solicitados para generar una solicitud.</p>
+            -->
+
+                <hr>
+
+                <!--DATOS DEL EMPLEADO-->
+                <div class="form-group">
+                    <label for="datosPersonales">Datos personales</label>
+
+                    <div class="">
+                        <!--
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="inputNombre" placeholder="Nombre/s">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="inputApellido" placeholder="Apellido/s">
+                    </div>
+                    -->
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" mae="inputCalle" id="inputCalle" placeholder="Calle" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="inputNumeroCalle" placeholder="Numero de calle" required>
+                        </div>
+
+                        <div class="form-group">
+                            <select class="custom-select" id="selectCiudad">
+                                <option selected value="0">Buscá tu ciudad</option>
+                                <option value="1">Achiras</option>
+                                <option value="2">Adelia María</option>
+                                <option value="3">Alcira Gigena</option>
+                                <option value="4">Alejandro Roca</option>
+                                <option value="5">Alejo Ledesma</option>
+                                <option value="6">Alicia</option>
+                                <option value="7">Almafuerte</option>
+                                <option value="8">Alta Gracia</option>
+                                <option value="9">Alto Resbaloso-El Barrial</option>
+                                <option value="10">Anisacate</option>
+                                <option value="11">Arias</option>
+                                <option value="12">Arroyito</option>
+                                <option value="13">Arroyo Cabral</option>
+                                <option value="14">Ballesteros</option>
+                                <option value="15">Balnearia</option>
+                                <option value="16">Berrotarán</option>
+                                <option value="17">Bialet Massé</option>
+                                <option value="18">Brinkmann</option>
+                                <option value="19">Calchín</option>
+                                <option value="20">Camilo Aldao</option>
+                                <option value="21">Canals</option>
+                                <option value="22">Capilla del Monte</option>
+                                <option value="23">Casa Grande</option>
+                                <option value="24">Ciudad de Río Tercero</option>
+                                <option value="25">Colonia Caroya</option>
+                                <option value="26">Colonia La Argentina</option>
+                                <option value="27">Cordoba Capital</option>
+                                <option value="28">Coronel Moldes</option>
+                                <option value="29">Corral de Bustos</option>
+                                <option value="30">Cosquín</option>
+                                <option value="31">Country Chacras de la Villa-Country San Isidro</option>
+                                <option value="32">Cruz Alta</option>
+                                <option value="33">Cuesta Blanca</option>
+                                <option value="34">Deán Funes</option>
+                                <option value="35">Del Campillo</option>
+                                <option value="36">Despeñaderos</option>
+                                <option value="37">Devoto</option>
+                                <option value="38">El Pueblito</option>
+                                <option value="39">El Valle</option>
+                                <option value="40">Elena</option>
+                                <option value="41">Embalse</option>
+                                <option value="42">Estación Juárez Celman</option>
+                                <option value="43">Estancia Vieja</option>
+                                <option value="44">Etruria</option>
+                                <option value="45">Freyre</option>
+                                <option value="46">General Baldissera</option>
+                                <option value="47">General Cabrera</option>
+                                <option value="48">General Deheza</option>
+                                <option value="49">General Levalle</option>
+                                <option value="50">General Roca</option>
+                                <option value="51">Guatimozín</option>
+                                <option value="52">Hernando</option>
+                                <option value="53">Huerta Grande</option>
+                                <option value="54">Huinca Renancó</option>
+                                <option value="55">Inriville</option>
+                                <option value="56">Isla Verde</option>
+                                <option value="57">James Craik</option>
+                                <option value="58">Jesús María</option>
+                                <option value="59">José de la Quintana</option>
+                                <option value="60">Jovita</option>
+                                <option value="61">Justiniano Posse</option>
+                                <option value="62">La Carlota</option>
+                                <option value="63">La Cumbre</option>
+                                <option value="64">La Cumbrecita</option>
+                                <option value="65">La Falda</option>
+                                <option value="66">La Francia</option>
+                                <option value="67">La Para</option>
+                                <option value="68">La Paz</option>
+                                <option value="69">La Perla</option>
+                                <option value="70">La Playosa</option>
+                                <option value="71">La Población</option>
+                                <option value="72">La Rancherita</option>
+                                <option value="73">La Serranita</option>
+                                <option value="74">Laborde</option>
+                                <option value="75">Laboulaye</option>
+                                <option value="76">Laguna Larga</option>
+                                <option value="77">Las Acequias</option>
+                                <option value="78">Las Chacras</option>
+                                <option value="79">Las Chacras</option>
+                                <option value="80">Las Higueras</option>
+                                <option value="81">Las Perdices</option>
+                                <option value="82">Las Tapias</option>
+                                <option value="83">Leones</option>
+                                <option value="84">Los Cerrillos</option>
+                                <option value="85">Los Cocos</option>
+                                <option value="86">Los Cóndores</option>
+                                <option value="87">Los Romeros</option>
+                                <option value="88">Los Surgentes</option>
+                                <option value="89">Luque</option>
+                                <option value="90">Malagueño</option>
+                                <option value="91">Malvinas Argentinas</option>
+                                <option value="92">Marcos Juárez</option>
+                                <option value="93">Mayu Sumaj</option>
+                                <option value="94">Mi Granja</option>
+                                <option value="95">Mina Clavero</option>
+                                <option value="96">Molinari</option>
+                                <option value="97">Monte Buey</option>
+                                <option value="98">Monte Cristo</option>
+                                <option value="99">Monte Maíz</option>
+                                <option value="100">Morrison</option>
+                                <option value="101">Morteros</option>
+                                <option value="102">Noetinger</option>
+                                <option value="103">Oliva</option>
+                                <option value="104">Oncativo</option>
+                                <option value="105">Ordóñez</option>
+                                <option value="106">Pascanas</option>
+                                <option value="107">Paso del Durazno</option>
+                                <option value="108">Pilar</option>
+                                <option value="109">Porteña</option>
+                                <option value="110">Pozo del Molle</option>
+                                <option value="111">Quilino</option>
+                                <option value="112">Río Primero</option>
+                                <option value="113">Río Segundo</option>
+                                <option value="114">Rumi Huasi</option>
+                                <option value="115">Sacanta</option>
+                                <option value="116">Sampacho</option>
+                                <option value="117">San Agustín</option>
+                                <option value="118">San Antonio de Arredondo</option>
+                                <option value="119">San Basilio</option>
+                                <option value="120">San Esteban</option>
+                                <option value="121">San Francisco</option>
+                                <option value="122">San Francisco del Chañar</option>
+                                <option value="123">San José de la Dormida</option>
+                                <option value="124">San Marcos Sud</option>
+                                <option value="125">San Pedro</option>
+                                <option value="126">San Roque</option>
+                                <option value="127">Santa Catalina</option>
+                                <option value="128">Santa Elena</option>
+                                <option value="129">Santa María de Punilla</option>
+                                <option value="130">Santa Mónica</option>
+                                <option value="131">Santa Rosa de Calamuchita</option>
+                                <option value="132">Santa Rosa de Río Primero</option>
+                                <option value="133">Santiago Temple</option>
+                                <option value="134">Saturnino María Laspiur</option>
+                                <option value="135">Sebastián Elcano</option>
+                                <option value="136">Serrano</option>
+                                <option value="137">Serrezuela</option>
+                                <option value="138">Tala Huasi</option>
+                                <option value="139">Tancacha</option>
+                                <option value="140">Tanti</option>
+                                <option value="141">Tío Pujio</option>
+                                <option value="142">Toledo</option>
+                                <option value="143">Tránsito</option>
+                                <option value="144">Trinchera</option>
+                                <option value="145">Tronco Pozo</option>
+                                <option value="146">Ucacha</option>
+                                <option value="147">Valle de Anisacate</option>
+                                <option value="148">Valle Hermoso</option>
+                                <option value="149">Vicuña Mackenna</option>
+                                <option value="150">Villa Ascasubi</option>
+                                <option value="151">Villa Carlos Paz</option>
+                                <option value="152">Villa Cura Brochero</option>
+                                <option value="153">Villa de Las Rosas</option>
+                                <option value="154">Villa de los Ranchos</option>
+                                <option value="155">Villa de María</option>
+                                <option value="156">Villa de Soto</option>
+                                <option value="157">Villa del Dique</option>
+                                <option value="158">Villa del Rosario</option>
+                                <option value="159">Villa del Totoral</option>
+                                <option value="160">Villa Dolores</option>
+                                <option value="161">Villa General Belgrano</option>
+                                <option value="162">Villa Giardino</option>
+                                <option value="163">Villa Huidobro</option>
+                                <option value="164">Villa Icho Cruz</option>
+                                <option value="165">Villa La Bolsa</option>
+                                <option value="166">Villa Los Aromos</option>
+                                <option value="167">Villa Los Llanos</option>
+                                <option value="168">Villa Nueva</option>
+                                <option value="169">Villa Parque Síquiman</option>
+                                <option value="170">Villa Reducción</option>
+                                <option value="171">Villa Rumipal</option>
+                                <option value="172">Villa San Nicolás</option>
+                                <option value="173">Villa Santa Cruz del Lago</option>
+                                <option value="174">Villa Sarmiento</option>
+                                <option value="175">Villa Valeria</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="inputReferencia" placeholder="Referencia geografica">
+                        </div>
+
+                        <div class="form-check-inline">
+                            <label style="padding-right:50px" class="form-check-label">
+                                ¿Como vas a pagar?
+                            </label>
+
+                            
+                            <input onclick="showMonto()" class="form-check-input" name="formaPago" type="radio" id="formaPagoEfectivo" value="Efectivo" checked>
+                            <label style="padding-right:50px" class="form-check-label">
+                                Efectivo
+                            </label>
+
+                            <input onclick="showTarjeta()" class="form-check-input" name="formaPago" type="radio" id="formaPagoCredito" value="Credito">
+                            <label class="form-check-label">
+                                VISA
+                            </label>
+                            
+
+                            </div>
+       
+                            
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <hr>
+                <div id="fieldMonto" class="form-group">
+                    <input type="text" class="form-control" id="inputMonto" placeholder="Monto con el que va a abonar">
+                </div>
+
+                <div style="display:none" id="fieldTarjeta" class="form-group">
+                    <div class="form-group">
+                        <input onkeypress="return checkDigit(event)" type="text" class="form-control" id="inputNroTarjeta" placeholder="Numero de tarjeta">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="inputTitular" placeholder="Nombre completo titular">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="inputcvv" placeholder="CVV">
+                    </div>
+
+                    <div class="form-group">
+                        <label style="padding-right:30px">Fecha de vencimiento</label>
+                        <select id="selectMonthTarjeta">
+                            <option value="0">01</option>
+                            <option value="1">02 </option>
+                            <option value="2">03</option>
+                            <option value="3">04</option>
+                            <option value="4">05</option>
+                            <option value="5">06</option>
+                            <option value="6">07</option>
+                            <option value="7">08</option>
+                            <option value="8">09</option>
+                            <option value="9">10</option>
+                            <option value="10">11</option>
+                            <option value="11">12</option>
+                        </select>
+                        <select id="selectYearTarjeta">
+                            <option value="0"> 2019</option>
+                            <option value="1"> 2020</option>
+                            <option value="2"> 2021</option>
+                            <option value="3"> 2022</option>
+                            <option value="4"> 2023</option>
+                            <option value="5"> 2024</option>
+                            <option value="6"> 2025</option>
+                            <option value="7"> 2026</option>
+                            <option value="8"> 2027</option>
+                            <option value="9"> 2028</option>
+                            <option value="10"> 2029</option>
+                        </select>
+                        <img style="max-width:40px;margin-top:-5px" src="data:image/png;base64,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" id="visa" />
+                    </div>
+
+                </div>
+                <hr>
+                <div class="form-check-inline">
+                    <label style="padding-right:50px" class="form-check-label">
+                        Cuando recibir tu pedido.
+                    </label>
+
+                    <input onclick="disableTimeField()" class="form-check-input" name="formaEntrega" type="checkbox" id="formaEntregaInmediata">
+                    <label style="padding-right:50px" class="form-check-label">
+                        Cuanto antes !
+                    </label>
+
+
+                    <!--
+                <label class="form-check-label" style="margin-right:10px">
+                    Fecha y Hora
+                </label>
+
+                <input type="text" id="datepicker">
+                <script>
+                    jQuery('#datepicker').datepicker({
+                        startDate: '+1971/05/01'//or 1986/12/08
+                    });
+                </script>
+                -->
+
+                    <div class="form-check-inline">
+                        <label class="form-check-label" style="margin-right:10px">
+                            Fecha y Hora
+                        </label>
+
+                        <input type="text" id="datepicker">
+                        <script>
+                            var dateDay = new Date().toLocaleDateString().split('/')[1];
+                            var dateMonth = new Date().toLocaleDateString().split('/')[0]-1;
+                            var dateYear = new Date().toLocaleDateString().split('/')[2];
+
+                            jQuery('#datepicker').datepicker({
+                                dateFormat: 'm/dd/yy',
+
+                                minDate: new Date(dateYear, dateMonth, dateDay),
+                                maxDate: '+30Y',
+                                inline: true
+                            });
+                        </script>
+
+                        <input type="text" id="timepicker">
+                        <script type="text/javascript">
+                            $('#timepicker').timepicker({
+                                timeFormat: 'h:mm p',
+                                interval: 15,
+                                minTime: '01:00',
+                                maxTime: '11:00pm',
+                                defaultTime: '12',
+                                startTime: '01:00',
+                                dynamic: false,
+                                dropdown: true,
+                                scrollbar: true
+                            });
+                        </script>
+                    </div>
+                </div>
+                <hr>
+
+
+
+                <script>
+                    var fieldMonto = document.getElementById("fieldMonto");
+                    var fieldTarjeta = document.getElementById("fieldTarjeta");
+
+                    function showMonto() {
+                        fieldTarjeta.style.display = "none";
+                        fieldMonto.style.display = "block";
+                    }
+
+                    function showTarjeta() {
+                        fieldMonto.style.display = "none";
+                        fieldTarjeta.style.display = "block";
+                    }
+
+                    function disableTimeField() {
+                        if (document.getElementById("datepicker").disabled) {
+                            document.getElementById("datepicker").disabled = false;
+                            document.getElementById("timepicker").disabled = false;
+                        }
+                        else {
+                            document.getElementById("datepicker").disabled = true;
+                            document.getElementById("timepicker").disabled = true;
+                        }
+                    }
+                </script>
+
+
+
+                <!--Botones-->
+                <div class="text-center">
+                    <button type="button" class="btn btn-danger" id="btn_cancelar">Volver</button>
+                    <button onclick="checkRegistrar()" type="button" class="btn btn-success" id="btn_confirmar">Registrar</button>
+                </div>
+
+                <br />
+        </div>
+
+
+
+        <footer>
+            <div class="footer">
+                ISW - UTN 2019
+            </div>
+        </footer>
+
+
+
+    <script>
+
+        //var nroCalle document.getElementById("inputNumeroCalle");
+        //var ciudad document.getElementById("selectCiudad");
+        //var referencia document.getElementById("inputReferencia");
+        //var monto document.getElementById("inputMonto");
+
+        function checkRegistrar() {
+
+            //var btn_radio = document.getElementById("formaPago")
+            
+
+            //for (var i = 0; i < input_radio.length; i++) {
+            //    if (input_radio[i].checked) {
+            //        alert("ASD " + input_radio[i].value);
+            //    }
+            //}
+
+            var calle = document.getElementById('inputCalle').value;
+            var nroCalle = document.getElementById("inputNumeroCalle").value;
+            var ciudad = document.getElementById("selectCiudad").options[document.getElementById("selectCiudad").value].text;
+            var referencia = document.getElementById("inputReferencia").value;
+            
+            if (document.getElementById("formaEntregaInmediata").checked) {
+                var formaEntrega = "Lo antes posible"
+            }
+            else {
+                var fecha = document.getElementById("datepicker").value;
+                var hora = document.getElementById("timepicker").value;
+                var today = new Date().toLocaleDateString();
+                var now = new Date().toLocaleTimeString();
+                
+                var fraccionTiempoPedido = hora.substring(hora.length, hora.length - 2)
+                var fraccionTiempoActual = now.substring(now.length, now.length - 2)
+                
+                //Comparando si el día de entrega es el mismo que el dia actual.
+                if (today.split('/')[0] == fecha.split('/')[0] && today.split('/')[1] == fecha.split('/')[1] && today.split('/')[2] == fecha.split('/')[2]) {
+                    if (fraccionTiempoPedido == "AM" && fraccionTiempoActual == "PM") {
+                        alert("TIEMPO DE PEDIDO INVALIDO")
+                        return false;
+                    }
+                
+                    if (fraccionTiempoPedido == fraccionTiempoActual) {
+                        if (parseInt(hora.split(':')[0]) <= parseInt(now.split(':')[0])) {
+                                alert("TIEMPO DE PEDIDO INVALIDO")
+                                return false;
+                        }
+                    
+                    }
+                }
+            
+                var formaEntrega = fecha + ' ' + hora
+            }
+
+
+            if (document.querySelector('input[name="formaPago"]:checked').value == "Efectivo") {
+                if (document.getElementById("carrito").rows.length - 1 > 0) {
+            
+                    if (document.getElementById("inputMonto").value == '') {
+                        alert("NO SE HA ESPECIFICADO UN MONTO A ABONAR")
+                        return false
+                    }
+                    else {
+                        var monto = document.getElementById("inputMonto").value;
+                        //ES EL MONTO SUFICIENTE PARA PAGAR??? HACER ESE CALCULO
+                        var pedido = [
+                            { "Calle": calle, "N° Calle": nroCalle, "Ciudad": ciudad, "Referencia": referencia, "Forma de Entrega": formaEntrega, "Paga con": monto },
+                        ];
+            
+
+                        alert("PEDIDO GENERADO CORRECTAMENTE")
+                        $(document).ready(function () {
+                            var html = '<table class="table table-striped">';
+                            html += '<tr>';
+                            var flag = 0;
+                            $.each(pedido[0], function (index, value) {
+                                html += '<th>' + index + '</th>';
+                            });
+                            html += '</tr>';
+                            $.each(pedido, function (index, value) {
+                                html += '<tr>';
+                                $.each(value, function (index2, value2) {
+                                    html += '<td>' + value2 + '</td>';
+                                });
+                                html += '<tr>';
+                            });
+                            html += '</table>';
+                            $('body').html(html);
+                        });
+                    }
+                }
+                else {
+                    alert("No hay productos en su carrito")
+                    return false;
+                }
+                
+            }
+            
+            if (document.querySelector('input[name="formaPago"]:checked').value == "Credito") {
+                if (document.getElementById("carrito").rows.length - 1 > 0) {
+                    var nroTarjeta = document.getElementById("inputNroTarjeta").value;
+                    var nombreTitular = document.getElementById("inputTitular").value;
+                    var cvv = document.getElementById("inputcvv").value;
+                    var month = document.getElementById("selectMonthTarjeta").options[document.getElementById("selectMonthTarjeta").value].text;
+                    var year = document.getElementById("selectYearTarjeta").options[document.getElementById("selectYearTarjeta").value].text;
+                    //var montoAbonado = document.getElementById("carrito").rows[1].cells[1].innerHTML * document.getElementById("carrito").rows[1].cells[2].innerHTML
+            
+                    fechaVencimiento = month + '/' + year
+            
+                    if (valid_credit_card(nroTarjeta)) {
+                        if (nroTarjeta.charAt(0) == '4') {
+            
+                            var pedido = [
+                                { "Calle": calle, "N° Calle": nroCalle, "Ciudad": ciudad, "Referencia": referencia, "Forma de Entrega": formaEntrega, "Monto abonado": 'Credito' },
+                            ];
+            
+
+                            alert("PEDIDO GENERADO CORRECTAMENTE")
+                            $(document).ready(function () {
+                                var html = '<table class="table table-striped">';
+                                html += '<tr>';
+                                var flag = 0;
+                                $.each(pedido[0], function (index, value) {
+                                    html += '<th>' + index + '</th>';
+                                });
+                                html += '</tr>';
+                                $.each(pedido, function (index, value) {
+                                    html += '<tr>';
+                                    $.each(value, function (index2, value2) {
+                                        html += '<td>' + value2 + '</td>';
+                                    });
+                                    html += '<tr>';
+                                });
+                                html += '</table>';
+                                $('body').html(html);
+                            });
+            
+            
+                        }
+                        else {
+                            alert("SU TARJETA DE CREDITO NO ES VISA")
+                            return false;
+                        }
+                    }
+                    else {
+                        alert("TARJETA DE CREDITO INCORRECTA")
+                        return false;
+                    }
+            
+                    
+            
+                }
+                else {
+                    alert("No hay productos en su carrito")
+                    return false;
+                }
+            }
+            
+            
+            
+            function valid_credit_card(value) {
+            
+                if (/[^0-9-\s]+/.test(value)) return false;
+            
+            
+                var nCheck = 0, nDigit = 0, bEven = false;
+                value = value.replace(/\D/g, "");
+            
+                for (var n = value.length - 1; n >= 0; n--) {
+                    var cDigit = value.charAt(n),
+                        nDigit = parseInt(cDigit, 10);
+            
+                    if (bEven) {
+                        if ((nDigit *= 2) > 9) nDigit -= 9;
+                    }
+            
+                    nCheck += nDigit;
+                    bEven = !bEven;
+                }
+            
+                return (nCheck % 10) == 0;
+            }
+
+        }
+
+            //window.onload = function () {
+            //    var btn_radio = document.getElementById("btn_confirmar");
+            //    btn_radio.onclick = function () {
+            //        var input_radio = document.formFormaPago.formaPago;
+            //
+            //        for (var i = 0; i < input_radio.length; i++) {
+            //            if (input_radio[i].checked) {
+            //                alert("ASD "+input_radio[i].value);                         
+            //        }
+            //    }
+            //}
+
+            
+            
+        
+
+        
+    </script>
+</body>
+</html>
